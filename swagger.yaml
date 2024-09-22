@@ -1,0 +1,120 @@
+swagger: '2.0'
+info:
+  title: Company Rest API
+  description: Company REST API for Baremetal Scenarios
+  version: 0.0.1
+schemes:
+  - http
+#  - https
+host: "0.0.0.0:11111"
+basePath: /company_name/v1
+produces:
+  - application/json
+consumes:
+  - application/json
+paths:
+#----------------------------------------------
+# Account
+#----------------------------------------------
+  '/account':
+    post:
+      summary: Create a new account service한글도 되긴함 
+      description: Create a new account with...
+      parameters:
+        - name: attr
+          in: body
+          required: true
+          description: Attributes for load balance service
+          schema:
+            $ref: '#/definitions/AccountEntry'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PostSuccess'
+        '400':
+          description: Malformed arguments for API call
+          schema:
+            $ref: '#/definitions/Error'
+  '/account/all':
+    get:
+      summary: Get all of user
+      description: Get all of the user infomation.
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              Attr:
+                type: array
+                items:
+                  $ref: '#/definitions/AccountEntry'
+        '401':
+          description: Invalid authentication credentials
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal service error
+          schema:
+            $ref: '#/definitions/Error'
+        '503':
+          description: Maintanence mode
+          schema:
+            $ref: '#/definitions/Error'
+  '/account/{user_id}':
+    delete:
+      summary: Delete one user
+      description: Delete one user.
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: user id
+      responses:
+        '204':
+          description: OK
+        '400':
+          description: Malformed arguments for API call
+          schema:
+            $ref: '#/definitions/Error'
+#----------------------------------------------
+# Schema definitions
+#----------------------------------------------
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      sub-code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: array
+        items:
+          type: string
+      details:
+        type: string    
+
+  AccountEntry:
+    type: object
+    properties:
+      user_id:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+        
+  PostSuccess:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
