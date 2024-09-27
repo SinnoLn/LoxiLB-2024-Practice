@@ -16,12 +16,14 @@
 package create
 
 import (
+	"clitest/api"
 	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-//func CreateCmd(restOptions *api.RESTOptions) *cobra.Command {
-func CreateCmd() *cobra.Command {
+// func CreateCmd(restOptions *api.RESTOptions) *cobra.Command {
+func CreateCmd(restOptions *api.RESTOptions) *cobra.Command {
 	var createCmd = &cobra.Command{
 		Use:   "create",
 		Short: "Create a Load balance features in the LoxiLB.",
@@ -30,10 +32,11 @@ Create - Service type external load-balancer, Vlan, Vxlan, Qos Policies,
 	 Endpoint client,FDB, IPaddress, Neighbor, Route,Firewall, Mirror, Session, UlCl
 `,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("Create called!\n", args)
+			fmt.Println("Create called!\n", args)
 		},
 	}
 
-	//createCmd.AddCommand(NewCreateLoadBalancerCmd(restOptions))
+	//'create account' 명령어 추가
+	createCmd.AddCommand(NewCreateAccountCmd(restOptions))
 	return createCmd
 }
