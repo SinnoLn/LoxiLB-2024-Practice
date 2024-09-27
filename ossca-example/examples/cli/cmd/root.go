@@ -3,6 +3,7 @@ package cmd
 import (
 	"clitest/api"
 	"clitest/cmd/create"
+	"clitest/cmd/delete"
 	"clitest/cmd/get"
 
 	"github.com/spf13/cobra"
@@ -32,7 +33,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&restOptions.ServerIP, "apiserver", "s", "127.0.0.1", "Set API server IP address")
 	rootCmd.PersistentFlags().Int16VarP(&restOptions.ServerPort, "port", "p", 11111, "Set API server port number")
 
-	rootCmd.AddCommand(create.CreateCmd())
 	rootCmd.AddCommand(get.GetCmd(restOptions))
+	rootCmd.AddCommand(create.CreateCmd(restOptions)) // create 명령어 추가
+	rootCmd.AddCommand(delete.DeleteCmd(restOptions)) // delete 명령어 추가
 
 }
