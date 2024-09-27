@@ -34,14 +34,16 @@ Create - Service type external load-balancer, Vlan, Vxlan, Qos Policies,
 	 Endpoint client,FDB, IPaddress, Neighbor, Route,Firewall, Mirror, Session, UlCl
 `,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("get called!\n", args)
+			fmt.Println("get called!\n", args)
 		},
 	}
 
+	// 'get account' 명령어 추가
 	getCmd.AddCommand(NewGetAccountCmd(restOptions))
 	return getCmd
 }
 
+// get으로 가져온 정보를 테이블로 출력
 func TableInit() *tablewriter.Table {
 	// Table Init
 	table := tablewriter.NewWriter(os.Stdout)
